@@ -16,7 +16,7 @@ class App extends StatelessWidget {
       title: 'Flutter Demo',
       theme: ParcelAppTheme.lightTheme,
       home: const Scaffold(
-        body: HomeScreen(),
+        body: SimpleRegisterScreen(),
         bottomNavigationBar: MyBottomNavigationBar(),
       ),
     );

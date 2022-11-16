@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_parcel_app/ui/screens/login_view.dart';
 
 class SimpleRegisterScreen extends StatefulWidget {
   /// Callback for when this form is submitted successfully. Parameters are (email, password)
@@ -146,7 +147,10 @@ class _SimpleRegisterScreenState extends State<SimpleRegisterScreen> {
               height: screenHeight * .125,
             ),
             TextButton(
-              onPressed: () => Navigator.pop(context),
+              onPressed: () => Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => const SimpleLoginScreen())),
               child: RichText(
                 text: const TextSpan(
                   text: "I'm already a member, ",
