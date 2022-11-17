@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_parcel_app/ui/screens/login_view.dart';
 
@@ -65,12 +66,29 @@ class _SimpleRegisterScreenState extends State<SimpleRegisterScreen> {
     return isValid;
   }
 
-  void submit() {
+  Future<void> submit() async {
     if (validate()) {
-      if (onSubmitted != null) {
-        onSubmitted!(email, password);
+      print('submitted check');
+      try {
+        print(email);
+        print(password);
+        final credential = await FirebaseAuth.instance
+            .createUserWithEmailAndPassword(
+              email: email,
+              password: password,
+            )
+            .whenComplete(() => print('registered'));
+      } on FirebaseAuthException catch (e) {
+        if (e.code == 'weak-password') {
+          print('The password provided is too weak.');
+        } else if (e.code == 'email-already-in-use') {
+          print('The account already exists for that email.');
+        }
+      } catch (e) {
+        print(e);
       }
     }
+    print("after validating");
   }
 
   @override

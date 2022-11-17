@@ -24,7 +24,7 @@ class AuthFunc extends StatelessWidget {
                     ? Navigator.of(context).pushNamed('/sign-in')
                     : signOut();
               },
-              child: !loggedIn ? const Text('RSVP') : const Text('Logout')),
+              child: !loggedIn ? const Text('Login') : const Text('Logout')),
         ),
         Visibility(
             visible: loggedIn,
