@@ -37,46 +37,55 @@ class MyParcelSize extends StatelessWidget {
           ),
         ],
       ),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          Container(
-            height: 99,
-            width: 66,
-            decoration: BoxDecoration(
-              image: DecorationImage(
-                image: AssetImage(parcelSizeImage),
+      child: ElevatedButton(
+        style: ElevatedButton.styleFrom(
+            textStyle: const TextStyle(fontSize: 20),
+            backgroundColor: Colors.white),
+        onPressed: () {
+          print(parcelSize);
+          Navigator.of(context).pushReplacementNamed('/send-parcel-detail');
+        },
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Container(
+              height: 99,
+              width: 66,
+              decoration: BoxDecoration(
+                image: DecorationImage(
+                  image: AssetImage(parcelSizeImage),
+                ),
               ),
             ),
-          ),
-          const SizedBox(
-            width: 38,
-          ),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text(
-                parcelSize,
-                style: Theme.of(context).textTheme.headline4,
-              ),
-              const SizedBox(
-                height: 3,
-              ),
-              Text(
-                parcelSizeDimension,
-                style: Theme.of(context).textTheme.headline5,
-              ),
-              const SizedBox(
-                height: 8,
-              ),
-              Text(
-                parcelSizeDescription,
-                style: Theme.of(context).textTheme.headline6,
-              ),
-            ],
-          )
-        ],
+            const SizedBox(
+              width: 38,
+            ),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  parcelSize,
+                  style: Theme.of(context).textTheme.headline4,
+                ),
+                const SizedBox(
+                  height: 3,
+                ),
+                Text(
+                  parcelSizeDimension,
+                  style: Theme.of(context).textTheme.headline5,
+                ),
+                const SizedBox(
+                  height: 8,
+                ),
+                Text(
+                  parcelSizeDescription,
+                  style: Theme.of(context).textTheme.headline6,
+                ),
+              ],
+            )
+          ],
+        ),
       ),
     );
   }

@@ -24,6 +24,12 @@ class App extends StatelessWidget {
             bottomNavigationBar: MyBottomNavigationBar(),
           );
         },
+        '/send-parcel-detail': (context) {
+          return const Scaffold(
+            body: SendParcelDetailScreen(),
+            bottomNavigationBar: MyBottomNavigationBar(),
+          );
+        },
         '/sign-in': ((context) {
           return SignInScreen(
             actions: [
@@ -75,7 +81,7 @@ class App extends StatelessWidget {
         })
       },
       debugShowCheckedModeBanner: false,
-      title: 'Flutter Demo',
+      title: 'Parcel Tracker',
       theme: ParcelAppTheme.lightTheme,
       home: const Scaffold(
         body: HomeScreen(),
