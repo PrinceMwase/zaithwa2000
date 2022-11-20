@@ -16,7 +16,16 @@ class MyParcelDeliveryMethod extends StatefulWidget {
   _MyParcelDeliveryMethodState createState() => _MyParcelDeliveryMethodState();
 }
 
+enum WhatsappStatus { online, offline }
+
+enum IsFragile { yes, no }
+
+enum IsElectronic { yes, no }
+
 class _MyParcelDeliveryMethodState extends State<MyParcelDeliveryMethod> {
+  WhatsappStatus? _whatsappStatus = WhatsappStatus.offline;
+  IsFragile? _isFragile = IsFragile.no;
+  IsElectronic? _isElectronic = IsElectronic.no;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -120,23 +129,7 @@ class _MyParcelDeliveryMethodState extends State<MyParcelDeliveryMethod> {
           const SizedBox(
             height: 16,
           ),
-          Row(
-            children: [
-              const SizedBox(
-                height: 10,
-              ),
-              Text(
-                'Email',
-                style: Theme.of(context).textTheme.headline6,
-              ),
-            ],
-          ),
-          TextField(
-            onChanged: (value) {},
-          ),
-          const SizedBox(
-            height: 16,
-          ),
+          // Phone Number
           Row(
             children: [
               const SizedBox(
@@ -154,13 +147,131 @@ class _MyParcelDeliveryMethodState extends State<MyParcelDeliveryMethod> {
           const SizedBox(
             height: 16,
           ),
+          // whatsapp status
+          Text(
+            'Whatsapp Status',
+            style: Theme.of(context).textTheme.headline6,
+          ),
+          ListTile(
+            title: const Text('Online'),
+            leading: Radio<WhatsappStatus>(
+              value: WhatsappStatus.online,
+              groupValue: _whatsappStatus,
+              onChanged: (WhatsappStatus? value) {
+                setState(() {
+                  _whatsappStatus = value;
+                });
+              },
+            ),
+          ),
+          ListTile(
+            title: const Text('Offline'),
+            leading: Radio<WhatsappStatus>(
+              value: WhatsappStatus.offline,
+              groupValue: _whatsappStatus,
+              onChanged: (WhatsappStatus? value) {
+                setState(() {
+                  _whatsappStatus = value;
+                });
+              },
+            ),
+          ),
+          const SizedBox(
+            height: 16,
+          ), //end Whatsapp Status
+
+          // Fragility
+          Text(
+            'Is it Fragile',
+            style: Theme.of(context).textTheme.headline6,
+          ),
+          ListTile(
+            title: const Text('Yes'),
+            leading: Radio<IsFragile>(
+              value: IsFragile.yes,
+              groupValue: _isFragile,
+              onChanged: (IsFragile? value) {
+                setState(() {
+                  _isFragile = value;
+                });
+              },
+            ),
+          ),
+          ListTile(
+            title: const Text('No'),
+            leading: Radio<IsFragile>(
+              value: IsFragile.no,
+              groupValue: _isFragile,
+              onChanged: (IsFragile? value) {
+                setState(() {
+                  _isFragile = value;
+                });
+              },
+            ),
+          ),
+          const SizedBox(
+            height: 16,
+          ), //end fragility Status
+          // electronic status
+          Text(
+            'Is it Electronic',
+            style: Theme.of(context).textTheme.headline6,
+          ),
+          ListTile(
+            title: const Text('Yes'),
+            leading: Radio<IsElectronic>(
+              value: IsElectronic.yes,
+              groupValue: _isElectronic,
+              onChanged: (IsElectronic? value) {
+                setState(() {
+                  _isElectronic = value;
+                });
+              },
+            ),
+          ),
+          ListTile(
+            title: const Text('No'),
+            leading: Radio<IsElectronic>(
+              value: IsElectronic.no,
+              groupValue: _isElectronic,
+              onChanged: (IsElectronic? value) {
+                setState(() {
+                  _isElectronic = value;
+                });
+              },
+            ),
+          ),
+          const SizedBox(
+            height: 16,
+          ), //end electronic status
+
+          // Location
           Row(
             children: [
               const SizedBox(
                 height: 10,
               ),
               Text(
-                'Address',
+                'Location',
+                style: Theme.of(context).textTheme.headline6,
+              ),
+            ],
+          ),
+          TextField(
+            onChanged: (value) {},
+          ),
+          const SizedBox(
+            height: 16,
+          ),
+
+          // District
+          Row(
+            children: [
+              const SizedBox(
+                height: 10,
+              ),
+              Text(
+                'District',
                 style: Theme.of(context).textTheme.headline6,
               ),
             ],
