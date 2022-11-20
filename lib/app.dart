@@ -18,6 +18,12 @@ class App extends StatelessWidget {
         '/home': (context) {
           return const HomeScreen();
         },
+        '/send-parcel': (context) {
+          return const Scaffold(
+            body: SendParcelScreen(),
+            bottomNavigationBar: MyBottomNavigationBar(),
+          );
+        },
         '/sign-in': ((context) {
           return SignInScreen(
             actions: [

@@ -1,4 +1,6 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_parcel_app/ui/screens/screens.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class MyBottomNavigationBar extends StatefulWidget {
@@ -10,11 +12,20 @@ class MyBottomNavigationBar extends StatefulWidget {
 
 class _MyBottomNavigationBarState extends State<MyBottomNavigationBar> {
   int _selectedIndex = 0;
+  late List<String> _children;
 
   void _onItemTapped(int index) {
     setState(() {
       _selectedIndex = index;
+      Navigator.of(context).pushReplacementNamed(_children[_selectedIndex]);
     });
+  }
+
+  @override
+  void initState() {
+    _selectedIndex = 0;
+    _children = ['/', '/send-parcel', '/send-parcel'];
+    super.initState();
   }
 
   @override
@@ -26,12 +37,10 @@ class _MyBottomNavigationBarState extends State<MyBottomNavigationBar> {
       unselectedLabelStyle: Theme.of(context).textTheme.headline5,
       items: <BottomNavigationBarItem>[
         BottomNavigationBarItem(
-          icon: _selectedIndex == 0
+          icon: _selectedIndex == Navigator.of(context)
               ? SvgPicture.asset('assets/images/icon_my_parcels.svg')
               : SvgPicture.asset('assets/images/icon_my_parcels_grey.svg'),
-          label: 'My parcels',
-
-          
+          label: 'Home',
         ),
         BottomNavigationBarItem(
           icon: _selectedIndex == 1
