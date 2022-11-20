@@ -33,7 +33,22 @@ class _SendParcelDetailScreenState extends State<SendParcelDetailScreen> {
               height: 11,
             ),
             const MyParcelDeliveryMethod(
-              parcelDeliveryMethod: 'From door to parcel center',
+              parcelDeliveryMethod: 'Office Collection',
+              parcelDeliveryDuration: '1 - 2 days',
+              parcelDeliveryImage: 'assets/images/img_door_to_parcel.png',
+            ),
+            const MyParcelDeliveryMethod(
+              parcelDeliveryMethod: 'City Delivery',
+              parcelDeliveryDuration: '1 - 2 days',
+              parcelDeliveryImage: 'assets/images/img_door_to_parcel.png',
+            ),
+            const MyParcelDeliveryMethod(
+              parcelDeliveryMethod: 'City Pickup',
+              parcelDeliveryDuration: '1 - 2 days',
+              parcelDeliveryImage: 'assets/images/img_door_to_parcel.png',
+            ),
+            const MyParcelDeliveryMethod(
+              parcelDeliveryMethod: 'Rush',
               parcelDeliveryDuration: '1 - 2 days',
               parcelDeliveryImage: 'assets/images/img_door_to_parcel.png',
             ),
