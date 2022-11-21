@@ -7,8 +7,9 @@ import 'package:firebase_auth/firebase_auth.dart' // new
         PhoneAuthProvider; // new
 import 'package:firebase_core/firebase_core.dart'; // new
 import 'package:firebase_ui_auth/firebase_ui_auth.dart'; // new
-import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
+
+import 'package:flutter_parcel_app/state/transaction_model.dart';
+
 import 'package:provider/provider.dart'; // new
 
 import 'firebase_options.dart';
@@ -49,9 +50,13 @@ void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-  runApp(ChangeNotifierProvider(
-      create: (context) => ApplicationState(),
-      builder: ((context, child) => const App())));
+  // runApp(ChangeNotifierProvider(
+  //     create: (context) => ApplicationState(),
+  //     builder: ((context, child) => const App())));
+  runApp(MultiProvider(providers: [
+    ChangeNotifierProvider(create: (context) => ApplicationState()),
+    Provider(create: (context) => TransactionModel()),
+  ], builder: ((context, child) => const App())));
 }
 
 

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_parcel_app/src/widgets.dart';
 
 class MyParcelDeliveryMethod extends StatefulWidget {
   const MyParcelDeliveryMethod(
@@ -23,77 +24,87 @@ enum IsFragile { yes, no }
 enum IsElectronic { yes, no }
 
 class _MyParcelDeliveryMethodState extends State<MyParcelDeliveryMethod> {
+  final _formKey =
+      GlobalKey<FormState>(debugLabel: '_MyParcelDeliveryMethodState');
+
+  final _nameController = TextEditingController();
+  final _phoneController = TextEditingController();
+  final _locationController = TextEditingController();
+  final _districtController = TextEditingController();
+
   WhatsappStatus? _whatsappStatus = WhatsappStatus.offline;
   IsFragile? _isFragile = IsFragile.no;
   IsElectronic? _isElectronic = IsElectronic.no;
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.only(
-        bottom: 16,
-      ),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(4),
-        color: Theme.of(context).backgroundColor,
-        boxShadow: [
-          BoxShadow(
-            color: Theme.of(context).shadowColor,
-            spreadRadius: 0,
-            blurRadius: 10,
-            offset: const Offset(0, 0),
-          ),
-        ],
-      ),
-      child: ExpansionTile(
-        tilePadding: const EdgeInsets.all(0),
-        trailing: const SizedBox.shrink(),
-        title: Container(
-          padding: const EdgeInsets.all(
-            16,
-          ),
-          height: 102,
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Container(
-                height: 70,
-                width: 70,
-                decoration: BoxDecoration(
-                  image: DecorationImage(
-                    image: AssetImage(widget.parcelDeliveryImage),
-                  ),
-                ),
+        margin: const EdgeInsets.only(
+          bottom: 16,
+        ),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(4),
+          color: Theme.of(context).backgroundColor,
+          boxShadow: [
+            BoxShadow(
+              color: Theme.of(context).shadowColor,
+              spreadRadius: 0,
+              blurRadius: 10,
+              offset: const Offset(0, 0),
+            ),
+          ],
+        ),
+        child: Form(
+          key: _formKey,
+          child: ExpansionTile(
+            tilePadding: const EdgeInsets.all(0),
+            trailing: const SizedBox.shrink(),
+            title: Container(
+              padding: const EdgeInsets.all(
+                16,
               ),
-              const SizedBox(
-                width: 34,
-              ),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.center,
+              height: 102,
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  Text(
-                    widget.parcelDeliveryMethod,
-                    style: Theme.of(context).textTheme.headline4,
+                  Container(
+                    height: 70,
+                    width: 70,
+                    decoration: BoxDecoration(
+                      image: DecorationImage(
+                        image: AssetImage(widget.parcelDeliveryImage),
+                      ),
+                    ),
                   ),
-                  Text(
-                    widget.parcelDeliveryMethod,
-                    style: Theme.of(context).textTheme.headline5,
+                  const SizedBox(
+                    width: 34,
+                  ),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        widget.parcelDeliveryMethod,
+                        style: Theme.of(context).textTheme.headline4,
+                      ),
+                      Text(
+                        widget.parcelDeliveryMethod,
+                        style: Theme.of(context).textTheme.headline5,
+                      )
+                    ],
                   )
                 ],
-              )
+              ),
+            ),
+            expandedCrossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Container(
+                height: 1,
+                color: const Color(0xFFd5d5d5),
+              ),
+              _buildExpansionChildren(context),
             ],
           ),
-        ),
-        expandedCrossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Container(
-            height: 1,
-            color: const Color(0xFFd5d5d5),
-          ),
-          _buildExpansionChildren(context),
-        ],
-      ),
-    );
+        ));
   }
 
   Widget _buildExpansionChildren(BuildContext context) {
@@ -123,8 +134,16 @@ class _MyParcelDeliveryMethodState extends State<MyParcelDeliveryMethod> {
               ),
             ],
           ),
-          TextField(
-            onChanged: (value) {},
+          TextFormField(
+            controller: _nameController,
+            decoration:
+                const InputDecoration(hintText: 'Enter details here...'),
+            validator: (value) {
+              if (value == null || value.isEmpty) {
+                return "Enter details";
+              }
+              return null;
+            },
           ),
           const SizedBox(
             height: 16,
@@ -141,8 +160,16 @@ class _MyParcelDeliveryMethodState extends State<MyParcelDeliveryMethod> {
               ),
             ],
           ),
-          TextField(
-            onChanged: (value) {},
+          TextFormField(
+            controller: _phoneController,
+            decoration:
+                const InputDecoration(hintText: 'Enter details here...'),
+            validator: (value) {
+              if (value == null || value.isEmpty) {
+                return "Enter details";
+              }
+              return null;
+            },
           ),
           const SizedBox(
             height: 16,
@@ -257,8 +284,16 @@ class _MyParcelDeliveryMethodState extends State<MyParcelDeliveryMethod> {
               ),
             ],
           ),
-          TextField(
-            onChanged: (value) {},
+          TextFormField(
+            controller: _locationController,
+            decoration:
+                const InputDecoration(hintText: 'Enter details here...'),
+            validator: (value) {
+              if (value == null || value.isEmpty) {
+                return "Enter details";
+              }
+              return null;
+            },
           ),
           const SizedBox(
             height: 16,
@@ -276,12 +311,40 @@ class _MyParcelDeliveryMethodState extends State<MyParcelDeliveryMethod> {
               ),
             ],
           ),
-          TextField(
-            onChanged: (value) {},
+          TextFormField(
+            controller: _districtController,
+            decoration:
+                const InputDecoration(hintText: 'Enter details here...'),
+            validator: (value) {
+              if (value == null || value.isEmpty) {
+                return "Enter details";
+              }
+              return null;
+            },
           ),
           const SizedBox(
             height: 16,
           ),
+
+          // Send Button
+          StyledButton(
+              child: Row(children: const [
+                Icon(Icons.send),
+                SizedBox(width: 4),
+                Text('SEND')
+              ]),
+              onPressed: () {
+                if (_formKey.currentState!.validate()) {
+                  print(_nameController.text);
+                  _nameController.clear();
+                  print(_phoneController.text);
+                  _phoneController.clear();
+                  print(_locationController.text);
+                  _locationController.clear();
+                  print(_districtController.text);
+                  _districtController.clear();
+                }
+              })
         ],
       ),
     );
