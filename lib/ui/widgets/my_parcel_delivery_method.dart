@@ -34,6 +34,7 @@ class _MyParcelDeliveryMethodState extends State<MyParcelDeliveryMethod> {
   final _phoneController = TextEditingController();
   final _locationController = TextEditingController();
   final _districtController = TextEditingController();
+  bool _loading = false;
 
   WhatsappStatus? _whatsappStatus = WhatsappStatus.offline;
   IsFragile? _isFragile = IsFragile.no;
@@ -338,7 +339,7 @@ class _MyParcelDeliveryMethodState extends State<MyParcelDeliveryMethod> {
                         SizedBox(width: 4),
                         Text('SEND')
                       ]),
-                      onPressed: () {
+                      onPressed: () async {
                         if (_formKey.currentState!.validate()) {
                           List _items = Provider.of<TransactionModel>(context,
                                   listen: false)
@@ -367,20 +368,24 @@ class _MyParcelDeliveryMethodState extends State<MyParcelDeliveryMethod> {
                                   _isElectronic,
                                   _locationController.text,
                                   _districtController.text);
-                              transactionModel
-                                  .addTransactionToCustomerService(transaction);
+                              await transactionModel
+                                  .addTransactionToCustomerService(transaction)
+                                  .then((value) {
+                                Navigator.of(context).pushReplacementNamed('/');
+
+// CLear form values
+                                _nameController.clear();
+
+                                _phoneController.clear();
+
+                                _locationController.clear();
+
+                                _districtController.clear();
+                              });
                             } else {
                               throw ("please log in");
                             }
                           }
-                          print(_nameController.text);
-                          _nameController.clear();
-                          print(_phoneController.text);
-                          _phoneController.clear();
-                          print(_locationController.text);
-                          _locationController.clear();
-                          print(_districtController.text);
-                          _districtController.clear();
                         }
                       }))
         ],

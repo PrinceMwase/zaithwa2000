@@ -24,7 +24,7 @@ class _MyBottomNavigationBarState extends State<MyBottomNavigationBar> {
   @override
   void initState() {
     _selectedIndex = 0;
-    _children = ['/', '/send-parcel', '/send-parcel'];
+    _children = ['/', '/send-parcel', '/parcel-center'];
     super.initState();
   }
 

@@ -30,6 +30,12 @@ class App extends StatelessWidget {
             bottomNavigationBar: MyBottomNavigationBar(),
           );
         },
+        '/parcel-center': (context) {
+          return const Scaffold(
+            body: ParcelCenterScreen(),
+            bottomNavigationBar: MyBottomNavigationBar(),
+          );
+        },
         '/sign-in': ((context) {
           return SignInScreen(
             actions: [
