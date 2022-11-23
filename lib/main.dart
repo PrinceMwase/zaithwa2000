@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_parcel_app/app.dart';
 import 'dart:async'; // new
@@ -20,11 +21,13 @@ class ApplicationState extends ChangeNotifier {
   }
 
   bool _loggedIn = false;
+  String _userId = '';
   bool _sendingParcel = false;
 
   bool get sendingParcel => _sendingParcel;
 
   bool get loggedIn => _loggedIn;
+  String get userId => _userId;
 
   Future<void> init() async {
     await Firebase.initializeApp(
@@ -37,8 +40,10 @@ class ApplicationState extends ChangeNotifier {
     FirebaseAuth.instance.userChanges().listen((user) {
       if (user != null) {
         _loggedIn = true;
+        _userId = user.uid;
       } else {
         _loggedIn = false;
+        _userId = '';
       }
       notifyListeners();
     });
@@ -54,8 +59,8 @@ void main() async {
   //     create: (context) => ApplicationState(),
   //     builder: ((context, child) => const App())));
   runApp(MultiProvider(providers: [
+    ChangeNotifierProvider(create: (context) => TransactionModel()),
     ChangeNotifierProvider(create: (context) => ApplicationState()),
-    Provider(create: (context) => TransactionModel()),
   ], builder: ((context, child) => const App())));
 }
 

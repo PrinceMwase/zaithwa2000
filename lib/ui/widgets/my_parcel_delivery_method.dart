@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_parcel_app/main.dart';
 import 'package:flutter_parcel_app/src/widgets.dart';
+import 'package:flutter_parcel_app/state/transaction_model.dart';
+import 'package:provider/provider.dart';
 
 class MyParcelDeliveryMethod extends StatefulWidget {
   const MyParcelDeliveryMethod(
@@ -326,25 +329,60 @@ class _MyParcelDeliveryMethodState extends State<MyParcelDeliveryMethod> {
             height: 16,
           ),
 
-          // Send Button
-          StyledButton(
-              child: Row(children: const [
-                Icon(Icons.send),
-                SizedBox(width: 4),
-                Text('SEND')
-              ]),
-              onPressed: () {
-                if (_formKey.currentState!.validate()) {
-                  print(_nameController.text);
-                  _nameController.clear();
-                  print(_phoneController.text);
-                  _phoneController.clear();
-                  print(_locationController.text);
-                  _locationController.clear();
-                  print(_districtController.text);
-                  _districtController.clear();
-                }
-              })
+          Consumer<TransactionModel>(
+              builder: (context, transactionModel, _) =>
+                  // Send Button
+                  StyledButton(
+                      child: Row(children: const [
+                        Icon(Icons.send),
+                        SizedBox(width: 4),
+                        Text('SEND')
+                      ]),
+                      onPressed: () {
+                        if (_formKey.currentState!.validate()) {
+                          List _items = Provider.of<TransactionModel>(context,
+                                  listen: false)
+                              .allItems;
+                          bool _loggedIn = Provider.of<ApplicationState>(
+                                  context,
+                                  listen: false)
+                              .loggedIn;
+                          String _customerId = Provider.of<ApplicationState>(
+                                  context,
+                                  listen: false)
+                              .userId;
+
+                          if (_items.isEmpty) {
+                            Navigator.of(context)
+                                .pushReplacementNamed('/send-parcel');
+                          } else {
+                            if (_loggedIn) {
+                              ParcelTransaction transaction = ParcelTransaction(
+                                  _items[0].size,
+                                  _customerId,
+                                  _nameController.text,
+                                  _phoneController.text,
+                                  _whatsappStatus,
+                                  _isFragile,
+                                  _isElectronic,
+                                  _locationController.text,
+                                  _districtController.text);
+                              transactionModel
+                                  .addTransactionToCustomerService(transaction);
+                            } else {
+                              throw ("please log in");
+                            }
+                          }
+                          print(_nameController.text);
+                          _nameController.clear();
+                          print(_phoneController.text);
+                          _phoneController.clear();
+                          print(_locationController.text);
+                          _locationController.clear();
+                          print(_districtController.text);
+                          _districtController.clear();
+                        }
+                      }))
         ],
       ),
     );

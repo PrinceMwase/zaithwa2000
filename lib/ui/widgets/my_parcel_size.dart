@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_parcel_app/state/transaction_model.dart';
+import 'package:provider/provider.dart';
 
 class MyParcelSize extends StatelessWidget {
   const MyParcelSize(
@@ -42,7 +44,9 @@ class MyParcelSize extends StatelessWidget {
             textStyle: const TextStyle(fontSize: 20),
             backgroundColor: Colors.white),
         onPressed: () {
-          print(parcelSize);
+          Size _parcelSize = Size(parcelSize);
+          context.read<TransactionModel>().triggerTransaction(_parcelSize);
+
           Navigator.of(context).pushReplacementNamed('/send-parcel-detail');
         },
         child: Row(
