@@ -16,7 +16,10 @@ class App extends StatelessWidget {
       initialRoute: '/',
       routes: {
         '/home': (context) {
-          return const HomeScreen();
+          return const Scaffold(
+            body: HomeScreen(),
+            bottomNavigationBar: MyBottomNavigationBar(),
+          );
         },
         '/send-parcel': (context) {
           return const Scaffold(
