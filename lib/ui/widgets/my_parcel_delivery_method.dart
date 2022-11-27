@@ -368,12 +368,21 @@ class _MyParcelDeliveryMethodState extends State<MyParcelDeliveryMethod> {
                                   _isElectronic,
                                   _locationController.text,
                                   _districtController.text);
+                              print({
+                                _items[0].size,
+                                _customerId,
+                                _nameController.text,
+                                _phoneController.text,
+                                _whatsappStatus,
+                                _isFragile,
+                                _isElectronic,
+                                _locationController.text,
+                                _districtController.text
+                              });
                               await transactionModel
                                   .addTransactionToCustomerService(transaction)
                                   .then((value) {
-                                Navigator.of(context).pushReplacementNamed('/');
-
-// CLear form values
+                                // CLear form values
                                 _nameController.clear();
 
                                 _phoneController.clear();
@@ -381,6 +390,10 @@ class _MyParcelDeliveryMethodState extends State<MyParcelDeliveryMethod> {
                                 _locationController.clear();
 
                                 _districtController.clear();
+                                Navigator.of(context).pushReplacementNamed('/');
+                              }).onError((error, stackTrace) {
+                                print("error has happened");
+                                print(error);
                               });
                             } else {
                               throw ("please log in");

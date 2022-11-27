@@ -29,6 +29,10 @@ class ApplicationState extends ChangeNotifier {
   bool get loggedIn => _loggedIn;
   String get userId => _userId;
 
+  StreamSubscription<QuerySnapshot>? _serviceSubscription;
+  List<Service> _serviceRequests = [];
+  List<Service> get serviceRequest => _serviceRequests;
+
   Future<void> init() async {
     await Firebase.initializeApp(
         options: DefaultFirebaseOptions.currentPlatform);
@@ -41,9 +45,30 @@ class ApplicationState extends ChangeNotifier {
       if (user != null) {
         _loggedIn = true;
         _userId = user.uid;
+
+        _serviceSubscription = FirebaseFirestore.instance
+            .collection('transactions')
+            .orderBy('timestamp', descending: true)
+            .snapshots()
+            .listen((snapshot) {
+          _serviceRequests = [];
+          for (final document in snapshot.docs) {
+            _serviceRequests.add(
+              Service(
+                id: document.id,
+                type: document.data()['service_type'] as String,
+                status: document.data()['service_status'] as String,
+                timestamp: document.data()['timestamp'] as int,
+              ),
+            );
+          }
+          notifyListeners();
+        });
       } else {
         _loggedIn = false;
         _userId = '';
+        _serviceRequests = [];
+        _serviceSubscription?.cancel();
       }
       notifyListeners();
     });

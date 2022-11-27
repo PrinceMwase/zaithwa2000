@@ -39,6 +39,7 @@ class TransactionModel extends ChangeNotifier {
         .add(<String, dynamic>{
       "service_type": transaction.serviceType,
       "customer_id": transaction.customerId,
+      "service_status": "unverified",
       "receiver_name": transaction.receiverName,
       "receiver_phone": transaction.receiverPhone,
       "whatsapp_status": transaction.whatsappStatus == WhatsappStatus.online
@@ -82,4 +83,16 @@ class ParcelTransaction {
     this.location,
     this.district,
   );
+}
+
+class Service {
+  Service(
+      {required this.id,
+      required this.status,
+      required this.type,
+      required this.timestamp});
+  final String id;
+  final String status;
+  final String type;
+  final int timestamp;
 }
